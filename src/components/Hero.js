@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';      // Senza parentesi graffe!
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
