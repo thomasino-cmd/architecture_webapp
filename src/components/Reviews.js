@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';    
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 /**
  * The Reviews section acts as the finishing touches. As the page scrolls,
  * the section pins and horizontal scrolling occurs. Each slide contains
