@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';    
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 /**
  * The Team section introduces the architects behind the studio. Cards rise
  * like columns from the blueprint, each revealing a portrait and a short
