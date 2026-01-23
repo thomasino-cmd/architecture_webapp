@@ -4,39 +4,47 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function HouseVisualizer() {
   const containerRef = useRef(null);
-  // Definiamo le 4 fasi con le rispettive immagini
+  
+  // Lista ordinata delle 4 fasi
   const stages = [
-    { id: 'hero', img: '/images/house-complete.png', alt: 'Casa Finita' },
-    { id: 'team', img: '/images/house-interior.png', alt: 'Interni' },
-    { id: 'services', img: '/images/house-structure.png', alt: 'Struttura' },
-    { id: 'contact', img: '/images/house-foundation.png', alt: 'Fondamenta' },
+    { id: 'img-hero', src: '/images/house-complete.png', alt: 'Casa Finita' },     // 0: Default visibile
+    { id: 'img-team', src: '/images/house-interior.png', alt: 'Interni' },         // 1: Appare su Team
+    { id: 'img-services', src: '/images/house-structure.png', alt: 'Struttura' },  // 2: Appare su Services
+    { id: 'img-contact', src: '/images/house-foundation.png', alt: 'Fondamenta' }  // 3: Appare su Contact
   ];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
-    // Per ogni immagine (tranne la prima che è fissa di base), creiamo l'animazione
-    // Le immagini sono sovrapposte (absolute). Facciamo fade-in di quella successiva sopra la precedente.
-    
-    // NOTA: Usiamo gli ID delle sezioni HTML (hero, team, services, contact) come trigger
-    
     const ctx = gsap.context(() => {
-      // 1. Da Casa Finita a Interni (Quando scorri su Team)
-      gsap.to(".house-img-1", {
-        opacity: 1,
-        ease: "none",
+      
+      // Impostiamo lo stato iniziale: 
+      // La prima immagine è visibile (opacity 1), tutte le altre nascoste (opacity 0)
+      gsap.set("#img-hero", { opacity: 1, zIndex: 1 });
+      gsap.set("#img-team", { opacity: 0, zIndex: 2 });
+      gsap.set("#img-services", { opacity: 0, zIndex: 3 });
+      gsap.set("#img-contact", { opacity: 0, zIndex: 4 });
+
+      // ---------------------------------------------------------
+      // TRANSIZIONE 1: Da "Finita" a "Interni" (Quando arriva TEAM)
+      // ---------------------------------------------------------
+      const tl1 = gsap.timeline({
         scrollTrigger: {
-          trigger: "#team", // Quando arriva la sezione Team
-          start: "top bottom", // Appena entra dal basso
-          end: "center center", // Fino al centro
-          scrub: true,
+          trigger: "#team",        // L'elemento che fa scattare l'animazione
+          start: "top bottom",     // Inizia quando il TOP di Team tocca il BOTTOM dello schermo
+          end: "center center",    // Finisce quando Team è al centro
+          scrub: true,             // L'animazione segue il dito (scroll)
         }
       });
+      
+      tl1.to("#img-hero", { opacity: 0, duration: 1 }, 0)      // La vecchia sparisce
+         .to("#img-team", { opacity: 1, duration: 1 }, 0);     // La nuova appare (lo "0" alla fine le sincronizza)
 
-      // 2. Da Interni a Struttura (Quando scorri su Services)
-      gsap.to(".house-img-2", {
-        opacity: 1,
-        ease: "none",
+
+      // ---------------------------------------------------------
+      // TRANSIZIONE 2: Da "Interni" a "Struttura" (Quando arriva SERVICES)
+      // ---------------------------------------------------------
+      const tl2 = gsap.timeline({
         scrollTrigger: {
           trigger: "#services",
           start: "top bottom",
@@ -45,43 +53,50 @@ export default function HouseVisualizer() {
         }
       });
 
-      // 3. Da Struttura a Fondamenta (Quando scorri su Contact)
-      gsap.to(".house-img-3", {
-        opacity: 1,
-        ease: "none",
+      tl2.to("#img-team", { opacity: 0, duration: 1 }, 0)
+         .to("#img-services", { opacity: 1, duration: 1 }, 0);
+
+
+      // ---------------------------------------------------------
+      // TRANSIZIONE 3: Da "Struttura" a "Fondamenta" (Quando arriva CONTACT)
+      // ---------------------------------------------------------
+      // Qui anticipiamo il trigger ("start: top 80%") per essere sicuri che 
+      // l'ultima immagine si veda anche se la pagina è corta.
+      const tl3 = gsap.timeline({
         scrollTrigger: {
           trigger: "#contact",
-          start: "top bottom",
-          end: "center center",
+          start: "top 85%",        // Appena entra il form contatti (un po' prima del fondo)
+          end: "bottom bottom",    // Fino alla fine della pagina
           scrub: true,
         }
       });
+
+      tl3.to("#img-services", { opacity: 0, duration: 1 }, 0)
+         .to("#img-contact", { opacity: 1, duration: 1 }, 0);
+
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none overflow-hidden">
-      {/* Immagine Base (Casa Finita) - Sempre visibile sotto */}
-      <img 
-        src={stages[0].img} 
-        alt={stages[0].alt} 
-        className="absolute inset-0 w-full h-full object-cover object-center"
-      />
+    <div ref={containerRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none overflow-hidden bg-white">
+      {/* NOTA: Ho aggiunto 'bg-white' al contenitore sopra per evitare che 
+         eventuali elementi dietro diano fastidio, ma le immagini si scambiano tra loro.
+      */}
 
-      {/* Le altre immagini sovrapposte con opacity 0 inizialmente */}
-      {stages.slice(1).map((stage, i) => (
+      {stages.map((stage) => (
         <img
           key={stage.id}
-          src={stage.img}
+          id={stage.id}
+          src={stage.src}
           alt={stage.alt}
-          className={`house-img-${i+1} absolute inset-0 w-full h-full object-cover object-center opacity-0`}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-transform will-change-opacity"
         />
       ))}
       
-      {/* Overlay bianco leggero per rendere il testo leggibile sopra i disegni */}
-      <div className="absolute inset-0 bg-white/70"></div>
+      {/* Overlay bianco leggerissimo per pulire il contrasto col testo se serve */}
+      <div className="absolute inset-0 bg-white/60 mix-blend-overlay pointer-events-none"></div>
     </div>
   );
 }
