@@ -4,29 +4,43 @@ import Team from '../components/Team';
 import Services from '../components/Services';
 import Reviews from '../components/Reviews';
 import Contact from '../components/Contact';
+import HouseVisualizer from '../components/HouseVisualizer'; // <--- Importiamo il nuovo componente
 
-/**
- * The main index page composes all sections into a single continuous scroll.
- * It follows the metaphor of constructing a building: foundations, structure,
- * walls, finishes, and roof. Smooth vertical scrolling is assumed by default.
- */
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Arch Studio – Studio di architetti freelance</title>
-        <meta
-          name="description"
-          content="Arch Studio: progettazione, interior design e ristrutturazioni. Un sito one‑page che racconta visivamente la nascita di un progetto."
-        />
+        <title>Arch Studio – Dalla visione alla realtà</title>
+        <meta name="description" content="Arch Studio" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Hero />
-        <Team />
-        <Services />
-        <Reviews />
-        <Contact />
+
+      <main className="relative">
+        {/* IL REGISTA DI SFONDO */}
+        <HouseVisualizer />
+
+        {/* LE SEZIONI (Devono avere gli ID corretti: hero, team, services, contact) */}
+        {/* Passiamo una prop 'id' ai componenti per identificarli */}
+        
+        <div id="hero">
+          <Hero />
+        </div>
+
+        <div id="team">
+          <Team />
+        </div>
+
+        <div id="services">
+          <Services />
+        </div>
+
+        <div id="reviews">
+          <Reviews />
+        </div>
+
+        <div id="contact">
+          <Contact />
+        </div>
       </main>
     </>
   );

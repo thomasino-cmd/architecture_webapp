@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';    
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 /**
- * The Team section introduces the architects behind the studio. Cards rise
- * like columns from the blueprint, each revealing a portrait and a short
- * bio. Colors gradually warm up to signify the transition from the cold
- * blueprint to the structural frame.
+ * The Team section introduces the architects behind the studio.
+ * Background is now transparent to show the "Interior" house drawing.
  */
 const teamMembers = [
   {
@@ -58,9 +57,9 @@ export default function Team() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col items-center bg-secondary py-20"
+      className="min-h-screen flex flex-col items-center bg-transparent py-20" // Modificato: bg-transparent
     >
-      <h2 className="text-4xl md:text-5xl font-title uppercase mb-12 text-quaternary">
+      <h2 className="text-4xl md:text-5xl font-title uppercase mb-12 text-quaternary drop-shadow-md">
         Il nostro team
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-11/12 max-w-6xl">
@@ -68,7 +67,8 @@ export default function Team() {
           <div
             key={member.name}
             ref={(el) => (cardRefs.current[i] = el)}
-            className="relative bg-primary p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+            // Modificato: bg-white/90 e backdrop-blur-sm per trasparenza
+            className="relative bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-lg flex flex-col items-center text-center border border-secondary/20"
           >
             <div className="w-32 h-32 mb-4 overflow-hidden rounded-full border-4 border-tertiary">
               <img
