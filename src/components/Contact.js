@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';    
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 /**
  * The Contact section concludes the narrative with the roof being placed.
  * A triangular roof element slides down over the form as the user approaches
