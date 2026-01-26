@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -29,9 +30,16 @@ export default function Hero() {
         </h1>
         <div className="w-16 h-1 bg-quaternary mx-auto mb-6 rounded-full opacity-80"></div>
         <p className="text-base md:text-2xl font-body text-text font-medium leading-relaxed">
-          Dalla visione alla realtà. <br className="hidden md:block" /> 
+          Dalla visione alla realtà. <br className="hidden md:block" />
           Progettiamo il futuro con passione e precisione.
         </p>
+
+        <Link
+          href="/portfolio"
+          className="mt-8 inline-block bg-quaternary text-white px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors duration-300 border border-transparent hover:border-white/20 shadow-lg"
+        >
+          Vedi i Nostri Lavori
+        </Link>
       </div>
     </section>
   );
