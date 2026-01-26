@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-export default function Magnetic({ children }) {
+export default function Magnetic({ children, className }) {
     const magneticRef = useRef(null);
 
     useEffect(() => {
@@ -44,8 +44,9 @@ export default function Magnetic({ children }) {
     return (
         <div
             ref={magneticRef}
+            className={className}
             data-magnetic="true"
-            style={{ display: 'inline-block' }} /* Preserves layout */
+            style={{ display: 'inline-block' }} /* Preserves layout default */
         >
             {children}
         </div>

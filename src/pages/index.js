@@ -3,8 +3,9 @@ import Hero from '../components/Hero';
 import Team from '../components/Team';
 import Services from '../components/Services';
 import Reviews from '../components/Reviews';
-import Contact from '../components/Contact';
-import HouseVisualizer from '../components/HouseVisualizer'; // <--- Importiamo il nuovo componente
+import ContactGateway from '../components/ContactGateway';
+import HouseVisualizer from '../components/HouseVisualizer';
+import PortfolioPreview from '../components/PortfolioPreview';
 
 export default function Home() {
   return (
@@ -26,6 +27,10 @@ export default function Home() {
           <Hero />
         </div>
 
+        <div id="portfolio-preview">
+          <PortfolioPreview />
+        </div>
+
         <div id="team">
           <Team />
         </div>
@@ -39,7 +44,7 @@ export default function Home() {
         </div>
 
         <div id="contact">
-          <Contact />
+          <ContactGateway />
         </div>
       </main>
     </>

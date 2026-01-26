@@ -1,7 +1,13 @@
 import Head from 'next/head';
-import Contact from '../components/Contact'; // Reusing the form logic
-import Magnetic from '../components/common/Magnetic';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import AppointmentSurvey from '../components/AppointmentSurvey';
+import Magnetic from '../components/common/Magnetic';
+
+// Dynamically import Map to avoid SSR issues with Leaflet
+const FixedMap = dynamic(() => import('../components/FixedMap'), {
+    ssr: false,
+});
 
 export default function ContactPage() {
     return (
@@ -10,7 +16,12 @@ export default function ContactPage() {
                 <title>Contatti | Arch Studio</title>
             </Head>
 
-            <section className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+            <section className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 relative">
+                <div className="absolute top-24 left-6 md:left-0 z-10">
+                    <Link href="/" className="inline-flex items-center gap-2 px-6 py-2 bg-white/80 backdrop-blur-md rounded-full text-sm font-bold uppercase tracking-widest text-quaternary hover:bg-quaternary hover:text-white transition-all shadow-md border border-quaternary/20">
+                        ← Torna alla Home
+                    </Link>
+                </div>
 
                 {/* Info Column */}
                 <div className="flex flex-col justify-center space-y-8">
@@ -35,17 +46,14 @@ export default function ContactPage() {
                         </div>
                     </div>
 
-                    <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 w-full mt-4">
-                        {/* Map Placeholder */}
-                        Mappa Interattiva
+                    <div className="h-64 md:h-80 w-full mt-4">
+                        <FixedMap />
                     </div>
                 </div>
 
                 {/* Form Column */}
-                <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-fit self-center">
-                    {/* Integrating the existing Contact component logic visually adapted if needed */}
-                    {/* For now, we render the component. In a real scenario we might pass props to style it differently or just import the form part. layout already handles it nicely. */}
-                    <Contact />
+                <div className="h-fit self-center w-full">
+                    <AppointmentSurvey />
                 </div>
 
             </section>

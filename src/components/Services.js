@@ -1,97 +1,97 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Magnetic from './common/Magnetic';
 
-/**
- * The Services section represents the structural phase.
- * Background is transparent to reveal the construction site structure.
- */
-const services = [
+const serviceItems = [
   {
-    title: 'Progettazione',
-    description: 'Dal concept iniziale al progetto esecutivo, trasformiamo le idee in realtà.',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10 text-quaternary">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 3.75l8.25 16.5m6.75-16.5L7.5 20.25" />
-      </svg>
-    ),
+    title: 'Architecture',
+    subtitle: 'Progettazione',
+    description: 'Dallo schizzo preliminare al cantiere. Visione olistica e precisione tecnica.',
+    image: '/images/house-complete.png', // Placeholder
+    colSpan: 'md:col-span-8',
+    rowSpan: 'md:row-span-2',
+    align: 'items-start',
   },
   {
-    title: 'Interior Design',
-    description: 'Progettiamo interni armoniosi e funzionali, cuciti su misura per ogni cliente.',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10 text-quaternary">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h18M4.5 4.5v11.25a3 3 0 003 3H16.5a3 3 0 003-3V4.5M9 8.25h.008v.008H9v-.008zm3 0h.008v.008H12v-.008zM9 11.25h.008v.008H9v-.008zm3 0h.008v.008H12v-.008zM9 14.25h.008v.008H9v-.008zm3 0h.008v.008H12v-.008z" />
-      </svg>
-    ),
+    title: 'Interior',
+    subtitle: 'Design',
+    description: 'Spazi che emozionano. Materiali, luce e arredo su misura.',
+    image: '/images/house-structure.png', // Placeholder
+    colSpan: 'md:col-span-4',
+    rowSpan: 'md:row-span-2',
+    align: 'items-center',
   },
   {
-    title: 'Ristrutturazioni',
-    description: 'Rinnoviamo e rigeneriamo spazi esistenti, preservando storia e carattere.',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10 text-quaternary">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.155-.439 1.594 0L21.75 12M4.5 9.75V19.5a.75.75 0 00.75.75H9a.75.75 0 00.75-.75V15a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v4.5a.75.75 0 00.75.75h3.75a.75.75 0 00.75-.75V9.75M8.25 20.25h7.5" />
-      </svg>
-    ),
+    title: 'Restauro',
+    subtitle: 'Ristrutturazioni',
+    description: 'Nuova vita al passato. Recupero conservativo e riqualificazione.',
+    image: '/images/house-foundation.png', // Placeholder
+    colSpan: 'md:col-span-12',
+    rowSpan: 'md:row-span-1',
+    align: 'items-end',
   },
 ];
 
 export default function Services() {
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      cardRefs.current.forEach((card, index) => {
-        const fromX = index % 2 === 0 ? -200 : 200;
-        gsap.fromTo(
-          card,
-          { x: fromX, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 1,
-            delay: index * 0.1,
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-            },
-          }
-        );
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
+  const containerRef = useRef(null);
 
   return (
-    <section
-      ref={sectionRef}
-      className="min-h-screen flex flex-col items-center bg-transparent py-20" // Modificato: bg-transparent
-    >
-      <h2 className="text-4xl md:text-5xl font-title uppercase mb-12 text-primary drop-shadow-md border-text-stroke">
-        I nostri servizi
-      </h2>
-      <p className="text-sm text-gray-500 uppercase tracking-widest mb-8">Clicca su un servizio per i dettagli</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-11/12 max-w-6xl">
-        {services.map((service, i) => (
-          <Magnetic key={service.title}>
-            <Link href="/services" className="block w-full h-full">
-              <div
-                ref={(el) => (cardRefs.current[i] = el)}
-                // Modificato: bg-white/90 e backdrop-blur-sm
-                className="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-lg flex flex-col items-start text-left border border-secondary/20 h-full hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="mb-4 transform transition-transform duration-300 group-hover:scale-110">{service.icon}</div>
-                <h3 className="text-xl font-title text-quaternary mb-2">{service.title}</h3>
-                <p className="text-sm text-text">
-                  {service.description}
-                </p>
-              </div>
-            </Link>
-          </Magnetic>
+    <section ref={containerRef} className="min-h-screen py-20 px-6 flex flex-col justify-center max-w-7xl mx-auto">
+      <div className="mb-16 flex justify-center">
+        <div className="eraser-mask">
+          <h2 className="text-6xl md:text-9xl font-title text-text eraser-text-shadow">
+            SERVICES
+          </h2>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+        {serviceItems.map((item, index) => (
+          <div
+            key={item.title}
+            className={`relative group rounded-3xl overflow-hidden border border-white/20 ${item.colSpan} ${item.rowSpan}`}
+          >
+            <Magnetic className="w-full h-full">
+              <Link href="/services" className="block w-full h-full relative p-8 md:p-12 flex flex-col justify-between z-20">
+                {/* CONTENT - Hidden initially, Slides up on hover */}
+                <div className={`w-full h-full flex flex-col ${item.align} relative z-20`}>
+
+                  {/* TITLE - ALWAYS VISIBLE but moves */}
+                  <div className="transition-all duration-500 group-hover:-translate-y-4">
+                    <span className="text-xs font-bold tracking-[0.2em] text-white/90 uppercase mb-2 block drop-shadow-md">{item.subtitle}</span>
+                    <h3 className="text-5xl md:text-7xl font-title text-white uppercase leading-none drop-shadow-2xl transition-all duration-500">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* DETAILS - X-RAY REVEAL (Slide Up) */}
+                  <div className="mt-auto transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 max-w-md">
+                    <p className="text-white/90 font-body text-lg leading-relaxed mb-6">
+                      {item.description}
+                    </p>
+                    <div className="flex items-center gap-4 text-white uppercase tracking-widest text-xs font-bold">
+                      <span className="w-8 h-[1px] bg-white text-quaternary"></span>
+                      Scopri Dettagli
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </Magnetic>
+
+            {/* BACKGROUND IMAGE - X-RAY EFFECT */}
+            {/* State A: Grayscale + Blur */}
+            {/* State B: Color + Sharp */}
+            <div className="absolute inset-0 z-0 transition-all duration-700 ease-in-out group-hover:scale-105">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover filter grayscale-[20%] blur-[3px] brightness-90 group-hover:grayscale-0 group-hover:blur-0 group-hover:brightness-100 transition-all duration-700"
+              />
+            </div>
+
+            {/* Overlay for inactive state readability */}
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] group-hover:backdrop-blur-none group-hover:bg-black/10 transition-all duration-500 z-10 pointer-events-none" />
+          </div>
         ))}
       </div>
     </section>

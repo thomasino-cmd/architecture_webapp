@@ -10,11 +10,26 @@ export default function Hero() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.hero-content',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out', delay: 0.5 }
+      const tl = gsap.timeline();
+
+
+      tl.fromTo(
+        '.hero-title',
+        { opacity: 0, scale: 0.9 },
+        { opacity: 0.9, scale: 1, duration: 1.5, ease: 'power3.out', delay: 0.2 }
       );
+
+      // Parallax Effect
+      gsap.to('.hero-title', {
+        yPercent: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -24,25 +39,12 @@ export default function Hero() {
       ref={sectionRef}
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-transparent px-4"
     >
-      {/* Box adattato per mobile: più opaco e con margini sicuri */}
-      <div className="hero-content z-10 text-center p-6 md:p-12 bg-white/80 md:bg-white/60 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 w-full max-w-3xl">
-        <h1 className="text-4xl md:text-7xl font-title mb-4 md:mb-6 tracking-wide uppercase text-quaternary drop-shadow-sm leading-tight">
-          ARCH STUDIO
-        </h1>
-        <div className="w-16 h-1 bg-quaternary mx-auto mb-6 rounded-full opacity-80"></div>
-        <p className="text-base md:text-2xl font-body text-text font-medium leading-relaxed">
-          Dalla visione alla realtà. <br className="hidden md:block" />
-          Progettiamo il futuro con passione e precisione.
-        </p>
-
-        <Magnetic>
-          <Link
-            href="/portfolio"
-            className="mt-8 inline-block bg-quaternary text-white px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors duration-300 border border-transparent hover:border-white/20 shadow-lg"
-          >
-            ESPLORA PORTFOLIO
-          </Link>
-        </Magnetic>
+      <div className="hero-content z-10 text-center w-full relative flex justify-center items-center">
+        <div className="eraser-mask">
+          <h1 className="hero-title text-6xl md:text-[10rem] font-title mb-0 tracking-tighter uppercase text-text leading-none eraser-text-shadow">
+            ARCH STUDIO
+          </h1>
+        </div>
       </div>
     </section>
   );

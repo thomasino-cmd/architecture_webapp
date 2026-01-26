@@ -10,7 +10,7 @@ export default function Layout({ children }) {
             <ProgressBar />
             <MenuOverlay />
 
-            <main className="min-h-screen relative bg-[#F5F5F5] selection:bg-quaternary selection:text-white">
+            <main className="min-h-screen relative bg-transparent selection:bg-quaternary selection:text-white">
                 {children}
             </main>
 

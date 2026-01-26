@@ -61,40 +61,39 @@ export default function Team() {
       ref={sectionRef}
       className="min-h-screen flex flex-col items-center bg-transparent py-20" // Modificato: bg-transparent
     >
-      <h2 className="text-4xl md:text-5xl font-title uppercase mb-12 text-quaternary drop-shadow-md">
-        Il nostro team
-      </h2>
+      <div className="eraser-mask mb-8 flex flex-col items-center">
+        <h2 className="text-4xl md:text-5xl font-title uppercase mb-4 text-quaternary eraser-text-shadow">
+          Il nostro team
+        </h2>
+        <p className="text-sm text-gray-500 uppercase tracking-widest px-4 py-1">
+          Scopri le nostre storie
+        </p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-11/12 max-w-6xl">
         {teamMembers.map((member, i) => (
-          <div
-            key={member.name}
-            ref={(el) => (cardRefs.current[i] = el)}
-            // Modificato: bg-white/90 e backdrop-blur-sm per trasparenza
-            className="relative bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-lg flex flex-col items-center text-center border border-secondary/20"
-          >
-            <div className="w-32 h-32 mb-4 overflow-hidden rounded-full border-4 border-tertiary">
-              <img
-                src={member.img}
-                alt={`Foto di ${member.name}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-xl font-title text-quaternary mb-1">{member.name}</h3>
-            <p className="italic text-sm text-tertiary mb-2">{member.role}</p>
-            <p className="text-sm text-text max-w-xs">{member.bio}</p>
-          </div>
+          <Magnetic key={member.name}>
+            <Link href="/about" className="block w-full">
+              <div
+                ref={(el) => (cardRefs.current[i] = el)}
+                className="relative bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-lg flex flex-col items-center text-center border border-white/40 hover:scale-105 transition-transform duration-500 group"
+              >
+                <div className="w-32 h-32 mb-4 overflow-hidden rounded-full border-4 border-tertiary shadow-inner">
+                  <img
+                    src={member.img}
+                    alt={`Foto di ${member.name}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                </div>
+                <h3 className="text-xl font-title text-quaternary mb-1">{member.name}</h3>
+                <p className="italic text-sm text-tertiary mb-2">{member.role}</p>
+                {/* Bio removed from here, moved to About page for "gateway" feel */}
+                <span className="mt-4 text-xs font-bold uppercase tracking-widest text-quaternary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Leggi Bio &rarr;
+                </span>
+              </div>
+            </Link>
+          </Magnetic>
         ))}
-      </div>
-
-      <div className="mt-12">
-        <Magnetic>
-          <Link
-            href="/about"
-            className="inline-block bg-transparent text-quaternary border border-quaternary px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-quaternary hover:text-white transition-colors duration-300"
-          >
-            SCOPRI LA NOSTRA STORIA
-          </Link>
-        </Magnetic>
       </div>
     </section>
   );

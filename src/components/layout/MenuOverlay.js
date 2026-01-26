@@ -15,30 +15,40 @@ export default function MenuOverlay() {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
     const linkRefs = useRef([]);
+    const tl = useRef(null);
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
     useEffect(() => {
-        const tl = gsap.timeline({ paused: true });
+        // Initialize GSAP timeline
+        // Note: We use css: { visibility: 'visible' } to avoid it blocking clicks when closed
+        tl.current = gsap.timeline({ paused: true })
+            .to(containerRef.current, {
+                duration: 0.8,
+                clipPath: "circle(150% at 95% 5%)",
+                ease: "power4.inOut",
+            })
+            .from(linkRefs.current, {
+                y: 100,
+                autoAlpha: 0,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: "power3.out",
+                onStart: () => { gsap.set(linkRefs.current, { visibility: 'visible' }); }
+            }, "-=0.5");
 
-        tl.to(containerRef.current, {
-            duration: 0.8,
-            clipPath: "circle(150% at 95% 5%)",
-            ease: "power4.inOut",
-        });
+        return () => {
+            if (tl.current) tl.current.kill();
+        };
+    }, []);
 
-        tl.from(linkRefs.current, {
-            y: 100,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.8,
-            ease: "power3.out",
-        }, "-=0.4");
+    useEffect(() => {
+        if (!tl.current) return;
 
         if (isOpen) {
-            tl.play();
+            tl.current.play();
         } else {
-            tl.reverse();
+            tl.current.reverse();
         }
     }, [isOpen]);
 
@@ -51,8 +61,8 @@ export default function MenuOverlay() {
                         className="w-16 h-16 rounded-full bg-quaternary text-white flex items-center justify-center pointer-events-auto mix-blend-difference"
                     >
                         <div className={`w-8 flex flex-col items-center gap-1.5 transition-all duration-300 ${isOpen ? 'gap-0' : ''}`}>
-                            <span className={`block h-[2px] bg-current transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[1px] w-8' : 'w-8'}`} />
-                            <span className={`block h-[2px] bg-current transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[1px] w-8' : 'w-5'}`} />
+                            <span className={`block h-[2px] bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[1px] w-8' : 'w-8'}`} />
+                            <span className={`block h-[2px] bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[1px] w-8' : 'w-5'}`} />
                         </div>
                     </button>
                 </Magnetic>
@@ -60,7 +70,7 @@ export default function MenuOverlay() {
 
             <div
                 ref={containerRef}
-                className="fixed inset-0 bg-[#E5DCC5] z-[90] flex items-center justify-center clip-circle-0"
+                className="fixed inset-0 bg-[#E5DCC5] z-[90] flex items-center justify-center"
                 style={{ clipPath: "circle(0% at 95% 5%)" }}
             >
                 <nav className="flex flex-col gap-6 text-center">
