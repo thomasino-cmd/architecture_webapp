@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';    
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Magnetic from './common/Magnetic';
 
 /**
  * The Services section represents the structural phase.
@@ -74,18 +75,19 @@ export default function Services() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-11/12 max-w-6xl">
         {services.map((service, i) => (
-          <div
-            key={service.title}
-            ref={(el) => (cardRefs.current[i] = el)}
-            // Modificato: bg-white/90 e backdrop-blur-sm
-            className="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-lg flex flex-col items-start text-left border border-secondary/20"
-          >
-            <div className="mb-4">{service.icon}</div>
-            <h3 className="text-xl font-title text-quaternary mb-2">{service.title}</h3>
-            <p className="text-sm text-text">
-              {service.description}
-            </p>
-          </div>
+          <Magnetic key={service.title}>
+            <div
+              ref={(el) => (cardRefs.current[i] = el)}
+              // Modificato: bg-white/90 e backdrop-blur-sm
+              className="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-lg flex flex-col items-start text-left border border-secondary/20"
+            >
+              <div className="mb-4">{service.icon}</div>
+              <h3 className="text-xl font-title text-quaternary mb-2">{service.title}</h3>
+              <p className="text-sm text-text">
+                {service.description}
+              </p>
+            </div>
+          </Magnetic>
         ))}
       </div>
     </section>

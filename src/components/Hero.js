@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Magnetic from './common/Magnetic';
 
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -34,12 +35,14 @@ export default function Hero() {
           Progettiamo il futuro con passione e precisione.
         </p>
 
-        <Link
-          href="/portfolio"
-          className="mt-8 inline-block bg-quaternary text-white px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors duration-300 border border-transparent hover:border-white/20 shadow-lg"
-        >
-          Vedi i Nostri Lavori
-        </Link>
+        <Magnetic>
+          <Link
+            href="/portfolio"
+            className="mt-8 inline-block bg-quaternary text-white px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors duration-300 border border-transparent hover:border-white/20 shadow-lg"
+          >
+            Vedi i Nostri Lavori
+          </Link>
+        </Magnetic>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';    
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Magnetic from './common/Magnetic';
 
 /**
  * The Contact section is now the "Foundation" stage.
@@ -16,7 +17,7 @@ export default function Contact() {
     gsap.registerPlugin(ScrollTrigger);
     // Animazione rimossa poiché non c'è più il tetto.
     // Lasciamo il context vuoto o aggiungiamo animazioni per il form se necessario in futuro.
-    const ctx = gsap.context(() => {}, sectionRef);
+    const ctx = gsap.context(() => { }, sectionRef);
     return () => ctx.revert();
   }, []);
 
@@ -99,12 +100,14 @@ export default function Contact() {
                 <option value="Altro">Altro</option>
               </select>
             </div>
-            <button
-              type="submit"
-              className="mt-4 bg-quaternary text-primary py-2 px-6 rounded hover:bg-secondary transition-colors font-bold"
-            >
-              Invia
-            </button>
+            <Magnetic>
+              <button
+                type="submit"
+                className="mt-4 bg-quaternary text-primary py-2 px-6 rounded hover:bg-secondary transition-colors font-bold"
+              >
+                Invia
+              </button>
+            </Magnetic>
           </form>
         )}
         {/* Calendly or booking embed placeholder */}
