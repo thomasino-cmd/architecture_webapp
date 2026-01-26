@@ -22,7 +22,7 @@ export default function ContactGateway() {
         >
             <div className="contact-cta text-center z-10 flex flex-col items-center">
                 <div className="eraser-mask mb-8">
-                    <h2 className="text-5xl md:text-7xl font-title text-quaternary mb-0 eraser-text-shadow">
+                    <h2 className="text-4xl md:text-5xl font-title uppercase mb-4 text-quaternary eraser-text-shadow">
                         Hai un progetto?
                     </h2>
                 </div>

@@ -41,7 +41,7 @@ export default function Hero() {
     >
       <div className="hero-content z-10 text-center w-full relative flex justify-center items-center">
         <div className="eraser-mask">
-          <h1 className="hero-title text-6xl md:text-[10rem] font-title mb-0 tracking-tighter uppercase text-text leading-none eraser-text-shadow">
+          <h1 className="hero-title text-6xl md:text-[10rem] font-title mb-0 tracking-tighter uppercase text-tertiary leading-none eraser-text-shadow">
             ARCH STUDIO
           </h1>
         </div>

@@ -4,31 +4,46 @@ import Magnetic from './common/Magnetic';
 
 const serviceItems = [
   {
-    title: 'Architecture',
-    subtitle: 'Progettazione',
-    description: 'Dallo schizzo preliminare al cantiere. Visione olistica e precisione tecnica.',
-    image: '/images/house-complete.png', // Placeholder
-    colSpan: 'md:col-span-8',
-    rowSpan: 'md:row-span-2',
-    align: 'items-start',
+    title: 'Urbanistica',
+    subtitle: 'Pianificazione',
+    description: 'Pianificazione strategica e sviluppo territoriale sostenibile.',
+    image: '/images/services/urbanistica.png',
+    link: '/services?id=urbanistica'
+  },
+  {
+    title: 'Edilizia',
+    subtitle: 'Costruzione',
+    description: 'Progettazione tecnica e direzione lavori per nuove costruzioni.',
+    image: '/images/services/edilizia.png',
+    link: '/services?id=edilizia'
   },
   {
     title: 'Interior',
     subtitle: 'Design',
     description: 'Spazi che emozionano. Materiali, luce e arredo su misura.',
-    image: '/images/house-structure.png', // Placeholder
-    colSpan: 'md:col-span-4',
-    rowSpan: 'md:row-span-2',
-    align: 'items-center',
+    image: '/images/services/interior-design.png',
+    link: '/services?id=interior'
   },
   {
-    title: 'Restauro',
-    subtitle: 'Ristrutturazioni',
-    description: 'Nuova vita al passato. Recupero conservativo e riqualificazione.',
-    image: '/images/house-foundation.png', // Placeholder
-    colSpan: 'md:col-span-12',
-    rowSpan: 'md:row-span-1',
-    align: 'items-end',
+    title: 'Catasto',
+    subtitle: 'Pratiche',
+    description: 'Gestione completa delle pratiche catastali e rilievi.',
+    image: '/images/services/catasto.png',
+    link: '/services?id=catasto'
+  },
+  {
+    title: 'Rendering',
+    subtitle: 'Visualizzazione',
+    description: 'Visualizzazioni fotorealistiche per anticipare il futuro.',
+    image: '/images/services/rendering.png',
+    link: '/services?id=rendering'
+  },
+  {
+    title: 'Valutazioni',
+    subtitle: 'Stime',
+    description: 'Valutazioni immobiliari professionali e perizie tecniche.',
+    image: '/images/services/valutazioni.png',
+    link: '/services?id=valutazioni'
   },
 ];
 
@@ -37,41 +52,36 @@ export default function Services() {
 
   return (
     <section ref={containerRef} className="min-h-screen py-20 px-6 flex flex-col justify-center max-w-7xl mx-auto">
-      <div className="mb-16 flex justify-center">
-        <div className="eraser-mask">
-          <h2 className="text-6xl md:text-9xl font-title text-text eraser-text-shadow">
-            SERVICES
-          </h2>
-        </div>
+      <div className="mb-16">
+        <h2 className="text-6xl md:text-9xl font-title text-white opacity-90 drop-shadow-2xl">
+          SERVICES
+        </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
         {serviceItems.map((item, index) => (
           <div
             key={item.title}
-            className={`relative group rounded-3xl overflow-hidden border border-white/20 ${item.colSpan} ${item.rowSpan}`}
+            className="relative group rounded-3xl overflow-hidden border border-white/20"
           >
-            <Magnetic className="w-full h-full">
-              <Link href="/services" className="block w-full h-full relative p-8 md:p-12 flex flex-col justify-between z-20">
+            <Magnetic className="w-full h-full relative z-30">
+              <Link href={item.link} className="block w-full h-full relative p-8 md:p-10 flex flex-col justify-between z-20">
                 {/* CONTENT - Hidden initially, Slides up on hover */}
-                <div className={`w-full h-full flex flex-col ${item.align} relative z-20`}>
+                <div className="w-full h-full flex flex-col items-center relative z-20 text-center">
 
                   {/* TITLE - ALWAYS VISIBLE but moves */}
-                  <div className="transition-all duration-500 group-hover:-translate-y-4">
+                  <div className="transition-all duration-500 group-hover:-translate-y-4 mt-auto mb-auto">
                     <span className="text-xs font-bold tracking-[0.2em] text-white/90 uppercase mb-2 block drop-shadow-md">{item.subtitle}</span>
-                    <h3 className="text-5xl md:text-7xl font-title text-white uppercase leading-none drop-shadow-2xl transition-all duration-500">
+                    <h3 className="text-4xl md:text-5xl font-title text-white uppercase leading-none drop-shadow-2xl transition-all duration-500">
                       {item.title}
                     </h3>
                   </div>
 
                   {/* DETAILS - X-RAY REVEAL (Slide Up) */}
-                  <div className="mt-auto transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 max-w-md">
-                    <p className="text-white/90 font-body text-lg leading-relaxed mb-6">
-                      {item.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-white uppercase tracking-widest text-xs font-bold">
-                      <span className="w-8 h-[1px] bg-white text-quaternary"></span>
-                      Scopri Dettagli
+                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform translate-y-[150%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gray-900/40 backdrop-blur-xl px-8 py-3 rounded-full border border-white/10 shadow-2xl pointer-events-none">
+                    <div className="flex items-center justify-center gap-3 text-white uppercase tracking-widest text-[10px] font-bold whitespace-nowrap">
+                      <span className="w-4 h-[1px] bg-white text-quaternary"></span>
+                      Scopri
                     </div>
                   </div>
                 </div>

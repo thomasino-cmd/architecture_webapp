@@ -6,7 +6,7 @@ export default function HouseVisualizer() {
   const containerRef = useRef(null);
 
   // ANIMAZIONE RICHIESTA: Structure -> Complete
-  const imgStart = '/images/house-structure.png'; // Inizio (Struttura/Disegno)
+  const imgStart = '/images/house-foundation.png'; // Inizio (Struttura/Disegno)
   const imgEnd = '/images/house-complete.png';    // Fine (Casa Completa)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function HouseVisualizer() {
 
     const ctx = gsap.context(() => {
       // Impostiamo lo stato iniziale
-      gsap.set("#house-structure", { opacity: 1, zIndex: 1 });
+      gsap.set("#house-foundation", { opacity: 1, zIndex: 1 });
       gsap.set("#house-complete", { opacity: 0, zIndex: 2 }); // Appare sopra
 
       const tl = gsap.timeline({

@@ -28,14 +28,17 @@ export default function MenuOverlay() {
                 clipPath: "circle(150% at 95% 5%)",
                 ease: "power4.inOut",
             })
-            .from(linkRefs.current, {
-                y: 100,
-                autoAlpha: 0,
-                stagger: 0.1,
-                duration: 0.8,
-                ease: "power3.out",
-                onStart: () => { gsap.set(linkRefs.current, { visibility: 'visible' }); }
-            }, "-=0.5");
+            .fromTo(linkRefs.current,
+                { y: 100, autoAlpha: 0 },
+                {
+                    y: 0,
+                    autoAlpha: 1,
+                    stagger: 0.1,
+                    duration: 0.8,
+                    ease: "power3.out",
+                },
+                "-=0.5"
+            );
 
         return () => {
             if (tl.current) tl.current.kill();

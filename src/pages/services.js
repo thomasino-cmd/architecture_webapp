@@ -1,36 +1,75 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const servicesDetail = [
     {
-        id: 'arch',
-        title: 'Architettura',
-        subtitle: 'Progettazione Completa',
-        description: 'Dallo studio di fattibilità alla direzione artistica. Creiamo edifici che dialogano con il contesto e le persone.',
-        tasks: ['Studi di Fattibilità', 'Progettazione Architettonica', 'Direzione Lavori', 'Pratiche Edilizie', 'Rendering & VR', 'BIM Modeling'],
-        image: '/images/house-complete.png'
+        id: 'urbanistica',
+        title: 'Urbanistica',
+        subtitle: 'Pianificazione & Territorio',
+        description: 'Pianificazione strategica e sviluppo territoriale sostenibile. Analisi normative e progettazione urbana integrata.',
+        tasks: ['Piani Attuativi', 'Studi di Fattibilità', 'Permessi di Costruire', 'Convenzioni Urbanistiche', 'Analisi Vincolistica', 'Rigenerazione Urbana'],
+        image: '/images/services/urbanistica.png'
     },
     {
-        id: 'interior',
-        title: 'Interior',
-        subtitle: 'Design & Arredo',
-        description: 'Non riempiamo spazi, creiamo atmosfere. Selezioniamo materiali, luci e arredi per raccontare la tua storia.',
-        tasks: ['Space Planning', 'Moodboard Materiali', 'Lighting Design', 'Arredi su Misura', 'Styling', 'Shopping List'],
-        image: '/images/house-structure.png'
+        id: 'edilizia',
+        title: 'Edilizia',
+        subtitle: 'Costruzioni & Tecnica',
+        description: 'Progettazione tecnica e direzione lavori per nuove costruzioni e riqualificazioni. Sicurezza e qualità costruttiva.',
+        tasks: ['Progettazione Esecutiva', 'Direzione Lavori', 'Computi Metrici', 'Sicurezza Cantiere', 'Capitolati', 'Collaudi'],
+        image: '/images/services/edilizia.png'
     },
     {
-        id: 'reno',
-        title: 'Recupero',
-        subtitle: 'Ristrutturazioni',
-        description: 'Rispettiamo l\'anima dell\'edificio mentre lo portiamo nel futuro. Restauro conservativo e riqualificazione energetica.',
-        tasks: ['Rilievi Laser', 'Consolidamenti', 'Riqualificazione Energetica', 'Impiantisca', 'Gestione Cantiere', 'Detrazioni Fiscali'],
-        image: '/images/house-foundation.png'
+        id: 'element_interior', // changed id to avoid name collision conflicts if any, but 'interior' is fine. sticking to easy ids.
+        title: 'Interior Design',
+        subtitle: 'Spazi & Atmosfere',
+        description: 'Design degli interni su misura. Creiamo ambienti unici che riflettono la personalità di chi li vive.',
+        tasks: ['Space Planning', 'Materiali & Finiture', 'Lighting Design', 'Arredi Custom', 'Styling', 'Color Consultancy'],
+        image: '/images/services/interior-design.png'
+    },
+    {
+        id: 'catasto',
+        title: 'Catasto',
+        subtitle: 'Pratiche & Rilievi',
+        description: 'Gestione completa delle pratiche catastali e rilievi topografici di precisione. Regolarizzazioni e aggiornamenti.',
+        tasks: ['Accatastamenti', 'Variazioni', 'Visure & Planimetrie', 'Rilievi Topografici', 'Volture', 'Rettifiche'],
+        image: '/images/services/catasto.png'
+    },
+    {
+        id: 'rendering',
+        title: 'Rendering',
+        subtitle: 'Visualizzazione 3D',
+        description: 'Visualizzazioni fotorealistiche per anticipare il futuro. Modellazione 3D avanzata e tour virtuali.',
+        tasks: ['Rendering Esterni', 'Rendering Interni', 'Virtual Tour 360°', 'Fotoinserimenti', 'Animazioni 3D', 'Realtà Aumentata'],
+        image: '/images/services/rendering.png'
+    },
+    {
+        id: 'valutazioni',
+        title: 'Valutazioni',
+        subtitle: 'Perizie & Stime',
+        description: 'Valutazioni immobiliari professionali e perizie tecniche. Analisi di mercato e due diligence.',
+        tasks: ['Stime Immobiliari', 'Perizie Giurate', 'Due Diligence', 'Analisi Mercato', 'Studi di Redditività', 'Consulenze Tecniche'],
+        image: '/images/services/valutazioni.png'
     }
 ];
 
 export default function ServicesPage() {
-    const [activeId, setActiveId] = useState('arch');
+    const router = useRouter();
+    const [activeId, setActiveId] = useState('urbanistica');
+
+    useEffect(() => {
+        if (router.isReady && router.query.id) {
+            const requestedId = router.query.id;
+            // Check if the id exists in our list to avoid setting invalid states
+            if (servicesDetail.some(s => s.id === requestedId || (requestedId === 'interior' && s.title === 'Interior Design'))) {
+                // Handle simple mapping if needed, but direct mapping is best.
+                // If I passed 'interior' for Interior Design, I should map it.
+                if (requestedId === 'interior') setActiveId('element_interior');
+                else setActiveId(requestedId);
+            }
+        }
+    }, [router.isReady, router.query.id]);
 
     return (
         <>
