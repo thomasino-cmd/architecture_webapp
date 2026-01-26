@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';    
+import Link from 'next/link';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Magnetic from './common/Magnetic';
 
 /**
  * The Team section introduces the architects behind the studio.
@@ -82,6 +84,17 @@ export default function Team() {
             <p className="text-sm text-text max-w-xs">{member.bio}</p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <Magnetic>
+          <Link
+            href="/about"
+            className="inline-block bg-transparent text-quaternary border border-quaternary px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-quaternary hover:text-white transition-colors duration-300"
+          >
+            SCOPRI LA NOSTRA STORIA
+          </Link>
+        </Magnetic>
       </div>
     </section>
   );

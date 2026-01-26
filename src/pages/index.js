@@ -21,7 +21,7 @@ export default function Home() {
 
         {/* LE SEZIONI (Devono avere gli ID corretti: hero, team, services, contact) */}
         {/* Passiamo una prop 'id' ai componenti per identificarli */}
-        
+
         <div id="hero">
           <Hero />
         </div>

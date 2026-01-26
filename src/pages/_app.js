@@ -1,17 +1,11 @@
 import '../styles/globals.css';
-import CustomCursor from '../components/CustomCursor';
-import ProgressBar from '../components/ProgressBar';
+import Layout from '../components/layout/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      {/* Progress bar indicating scroll depth */}
-      <ProgressBar />
-      {/* Custom cursor follows the mouse */}
-      <CustomCursor />
-      {/* Render the page component */}
+    <Layout>
       <Component {...pageProps} />
-    </>
+    </Layout>
   );
 }
 

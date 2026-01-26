@@ -40,7 +40,7 @@ export default function Hero() {
             href="/portfolio"
             className="mt-8 inline-block bg-quaternary text-white px-8 py-3 rounded-none uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors duration-300 border border-transparent hover:border-white/20 shadow-lg"
           >
-            Vedi i Nostri Lavori
+            ESPLORA PORTFOLIO
           </Link>
         </Magnetic>
       </div>

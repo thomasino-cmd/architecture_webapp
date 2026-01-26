@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@studio-freight/react-lenis": "^0.0.47",
     "gsap": "^3.12.2",
     "leaflet": "^1.9.4",
     "next": "^14.0.0",
